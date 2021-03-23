@@ -9,12 +9,12 @@ export class Zork {
     this.process = spawn(file);
 
     this.process.stdout.on("data", (data) => {
-      console.log("Received data: " + data);
+      console.log("Received: " + data);
       callback(data);
     });
 
     this.process.stderr.on("data", (data) => {
-      console.error(`ERROR!!!! ${data}`);
+      console.error(`Error: ${data}`);
     });
 
     this.process.on("close", (code) => {
@@ -23,7 +23,9 @@ export class Zork {
   }
 
   execute(cmd: string): void {
-    console.log("Executing cmd: " + cmd);
+    console.log("Executing: " + cmd);
     this.process.stdin.write(cmd + "\n");
   }
+
+  // TODO: Create dtor that releases the process
 }
